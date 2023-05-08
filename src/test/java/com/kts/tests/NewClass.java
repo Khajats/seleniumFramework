@@ -8,4 +8,7 @@ public class NewClass {
 
 	}
 
+	public void second() {
+		System.out.println("method added");
+	}
 }
