@@ -19,16 +19,7 @@ public final class DriverFactory {
 
 	private DriverFactory() {}
 
-	/**
-	 * 
-	 * @author Amuthan Sakthivel
-	 * Mar 20, 2021
-	 * @param browser
-	 * @param version
-	 * @return
-	 * @throws MalformedURLException
-	 * TODO Remove hardcoded value of grid url
-	 */
+
 	public static WebDriver getDriver(String browser,String version) throws MalformedURLException {
 
 		WebDriver driver=null;
