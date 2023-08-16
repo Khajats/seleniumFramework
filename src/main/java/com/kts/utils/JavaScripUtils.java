@@ -1,4 +1,4 @@
-package com.kts.utils;
+ package com.kts.utils;
 
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -47,7 +47,7 @@ public final class JavaScripUtils {
 
 	public static void scrollToElement(WebDriver driver, WebElement element) {
 		JavascriptExecutor js = (JavascriptExecutor) driver;
-		js.executeScript("window.scrollIntoView()", element);
+		js.executeScript("arguments[0].scrollIntoView()", element);
 	}
 
 	public static void zoomPageByJs(WebDriver driver) {

@@ -6,42 +6,57 @@ import java.io.IOException;
 import java.util.Objects;
 
 import com.aventstack.extentreports.ExtentReports;
-import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
-import com.aventstack.extentreports.reporter.configuration.ViewName;
+import com.kts.constants.FrameworkConstants;
+import com.kts.enums.CategoryType;
 
 public final class ExtentReport {
+
+	private ExtentReport() {}
+
 	private static ExtentReports extent;
-	private static ExtentTest extentTest;
 
-	private ExtentReport() {
-
-	}
-
-	public static void initReport() {
-		if (Objects.isNull(extent)) {
+	
+	public static void initReports() {
+		if(Objects.isNull(extent)) {
 			extent = new ExtentReports();
-			ExtentSparkReporter spark = new ExtentSparkReporter("./report.html");
-			spark.viewConfigurer().viewOrder()
-					.as(new ViewName[] { ViewName.DASHBOARD, ViewName.CATEGORY, ViewName.TEST }).apply();
+			ExtentSparkReporter spark = new ExtentSparkReporter(FrameworkConstants.getExtentReportFilePath()); 
 			extent.attachReporter(spark);
-			spark.config().setTheme(Theme.DARK);
-			spark.config().setDocumentTitle("kts report");
-			spark.config().setReportName("Framework");
+			spark.config().setTheme(Theme.STANDARD);
+			spark.config().setDocumentTitle("TMB Report");
+			spark.config().setReportName("Youtube Training");
 		}
 	}
 
-	public static void flushReport() throws IOException {
-		if (Objects.nonNull(extent)) {
+	public static void flushReports(){
+		if(Objects.nonNull(extent)) {
 			extent.flush();
 		}
-		Desktop.getDesktop().browse(new File("./report.html").toURI());
-
+		ExtentManager.unload();
+		try {
+			Desktop.getDesktop().browse(new File(FrameworkConstants.getExtentReportFilePath()).toURI());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
-	public static void createTest(String testname) {
-		extentTest = extent.createTest(testname);
+	
+	public static void createTest(String testcasename) {
+		ExtentManager.setExtentTest(extent.createTest(testcasename));
 	}
-
+	
+	
+	public static void addAuthors(String[] authors) {
+		for(String temp:authors) {
+			ExtentManager.getExtentTest().assignAuthor(temp);
+		}
+	}
+	
+	
+	public static void addCategories(CategoryType[] categories) {
+		for(CategoryType temp:categories) {
+			ExtentManager.getExtentTest().assignCategory(temp.toString());
+		}
+	}
 }

@@ -3,7 +3,6 @@ package com.kts.reports;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
-import java.time.Duration;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -20,7 +19,7 @@ import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
 import com.aventstack.extentreports.reporter.configuration.ViewName;
-import com.kts.utils.Screenshort;
+import com.kts.utils.ScreenshortUtils;
 
 public class Practice1 {
 
@@ -62,7 +61,7 @@ public class Practice1 {
 		driver = new ChromeDriver();
 		driver.get("https:/google.com");
 		test1.info("browser open");
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
+		driver.manage().timeouts().implicitlyWait(0, null);
 		driver.findElement(By.name("q")).sendKeys("automation", Keys.ENTER);
 		test1.info("detailes enter");
 		// test.pass("test is passed",
@@ -73,7 +72,7 @@ public class Practice1 {
 		 * ).build());
 		 */
 		test1.pass("test is passed",
-				MediaEntityBuilder.createScreenCaptureFromBase64String(Screenshort.getScreenBase64()).build());
+				MediaEntityBuilder.createScreenCaptureFromBase64String(ScreenshortUtils.getScreenBase64()).build());
 	}
 
 	@Test
@@ -83,11 +82,11 @@ public class Practice1 {
 		driver = new ChromeDriver();
 		driver.get("https:/google.com");
 		test2.info("browser open");
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
+		driver.manage().timeouts().implicitlyWait(0, null);
 		driver.findElement(By.name("q")).sendKeys("postman", Keys.ENTER);
 		test2.info("detailes enter");
 		test2.fail("test is failed",
-				MediaEntityBuilder.createScreenCaptureFromBase64String(Screenshort.getScreenBase64()).build());
+				MediaEntityBuilder.createScreenCaptureFromBase64String(ScreenshortUtils.getScreenBase64()).build());
 	}
 
 }

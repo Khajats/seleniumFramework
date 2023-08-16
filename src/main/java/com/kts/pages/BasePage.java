@@ -5,7 +5,7 @@ import org.openqa.selenium.WebElement;
 
 import com.kts.driver.DriverManager;
 import com.kts.enums.WaitStrategy;
-import com.kts.factories.ExplicityWaitFactory;
+import com.kts.factories.ExplicitWaitFactory;
 
 public class BasePage {
 	protected BasePage() {
@@ -13,12 +13,12 @@ public class BasePage {
 	}
 
 	protected void sendKey(By by, String value, WaitStrategy waitingStrategy) {
-		WebElement element = ExplicityWaitFactory.explicityWaitStrategy(waitingStrategy, by);
+		WebElement element = ExplicitWaitFactory.performExplicitWait(waitingStrategy, by);
 		element.sendKeys(value);
 	}
 
 	protected void click(By by, WaitStrategy waitingStrategy) {
-		WebElement element = ExplicityWaitFactory.explicityWaitStrategy(waitingStrategy, by);
+		WebElement element = ExplicitWaitFactory.performExplicitWait(waitingStrategy, by);
 		element.click();
 	}
 

@@ -12,9 +12,9 @@ import org.openqa.selenium.TakesScreenshot;
 
 import com.kts.driver.DriverManager;
 
-public final class Screenshort {
+public final class ScreenshortUtils {
 
-	private Screenshort() {
+	private ScreenshortUtils() {
 
 	}
 
