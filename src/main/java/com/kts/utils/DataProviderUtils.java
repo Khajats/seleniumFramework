@@ -1,7 +1,10 @@
 package com.kts.utils;
 
+import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
@@ -9,6 +12,9 @@ import java.util.function.Predicate;
 import org.testng.annotations.DataProvider;
 
 import com.kts.constants.FrameworkConstants;
+
+import com.kts.pojos.Airline;
+import utils.ExcelUtils;
 
 
 public final class DataProviderUtils {
@@ -43,4 +49,24 @@ public final class DataProviderUtils {
 		return smalllist.toArray();
 
 	}
+	
+    @DataProvider(name = "airlineData")
+    public Iterator<Airline> getCreateAirlineData() throws IOException {
+        List<LinkedHashMap<String, String>> excelDataAsListOfMap = ExcelUtils.getExcelDataAsListOfMap("CreateAirlineData1", "Sheet1");
+        System.out.println(excelDataAsListOfMap);
+        List<Airline> airlineData = new ArrayList<>();
+        for(LinkedHashMap<String,String> data : excelDataAsListOfMap) {
+            Airline airline = Airline.builder()
+                    .id(Integer.parseInt(data.get("Id")))
+                    .name(data.get("Name"))
+                    .country(data.get("Country"))
+                    .logo(data.get("Logo"))
+                    .established(data.get("Established"))
+                    .website(data.get("Website"))
+                    .slogan(data.get("Slogan"))
+                    .head_quaters(data.get("HeadQuarter"))
+                    .build();
+            airlineData.add(airline);
+        }
+        return airlineData.iterator();
 }
